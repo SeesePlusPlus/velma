@@ -1,7 +1,8 @@
 {
-  "name": "solidity-debugger",
+  "name": "velma",
+  "displayName": "Velma Solidity Debugger",
   "version": "1.0.0-rc.1",
-  "description": "",
+  "description": "The only real-time Solidity debugger",
   "main": "./out/index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,18 +11,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/seeseplusplus/solidity-debugger.git"
+    "url": "https://github.com/seeseplusplus/velma.git"
   },
   "publisher": "SeesePlusPlus",
   "author": {
     "name": "Mike Seese",
     "email": "seesemichaelj@gmail.com"
   },
+  "keywords": [
+    "solidity",
+    "debug",
+    "ethereum",
+    "velma"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/seeseplusplus/solidity-debugger/issues"
+    "url": "https://github.com/seeseplusplus/velma/issues"
   },
-  "homepage": "https://gitlab.com/seeseplusplus/solidity-debugger#README",
+  "homepage": "https://github.com/seeseplusplus/velma#README",
   "dependencies": {
     "@types/node": "^8.0.53",
     "bignumber.js": "^6.0.0",
@@ -29,7 +36,7 @@
     "circular-json": "^0.4.0",
     "net": "^1.0.2",
     "solc": "0.4.18",
-    "solidity-parser": "git+ssh://git@gitlab.com:seese-ethereum/solidity-parser.git#introduce-sdb",
+    "solidity-parser": "seeseplusplus/solidity-parser#introduce-velma",
     "traverse": "^0.6.6",
     "uuid": "^3.1.0",
     "vscode-debugprotocol": "1.27.0",
