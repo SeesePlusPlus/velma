@@ -1,4 +1,4 @@
-import { LibSdbInterface } from "../../../interface";
+import { LibSdbInterface } from "../../../interface/interface";
 import { LibSdbTypes } from "../../types";
 import { decode as decodeValue } from "./value";
 import { BN } from "bn.js";

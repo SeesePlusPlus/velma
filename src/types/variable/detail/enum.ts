@@ -1,7 +1,7 @@
 import { ValueDetail } from "./value";
 import { EnumDefinition } from "../../enum";
 import { Variable, DecodedVariable, VariableLocation, VariableType, VariableTypeToString } from "../variable";
-import { LibSdbInterface } from "../../../interface";
+import { LibSdbInterface } from "../../../interface/interface";
 import { BN } from "bn.js";
 
 import { decode as decodeStack } from "../decode/stack";

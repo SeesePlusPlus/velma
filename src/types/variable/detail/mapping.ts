@@ -2,7 +2,7 @@ import { Variable, DecodedVariable } from "../variable";
 import { ValueDetail } from "./value";
 import { ArrayDetail } from "./array";
 import { BN } from "bn.js";
-import { LibSdbInterface } from "../../../interface";
+import { LibSdbInterface } from "../../../interface/interface";
 import { LibSdbTypes } from "../../types";
 
 export class MappingDetail {

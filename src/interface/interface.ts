@@ -1,8 +1,8 @@
 import * as WebSocket from "ws";
 
-import { LibSdbRuntime } from "./runtime";
-import { LibSdbCompilationProcessor } from "./compilation/processor";
-import { LibSdbTypes } from "./types/types";
+import { LibSdbRuntime } from "../runtime";
+import { LibSdbCompilationProcessor } from "../compilation/processor";
+import { LibSdbTypes } from "../types/types";
 
 const uuidv4 = require("uuid").v4;
 

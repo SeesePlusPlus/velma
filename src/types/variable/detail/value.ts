@@ -1,5 +1,5 @@
 import { Variable, VariableType, DecodedVariable, VariableLocation, VariableTypeToString } from "../variable";
-import { LibSdbInterface } from "../../../interface";
+import { LibSdbInterface } from "../../../interface/interface";
 import { BN } from "bn.js";
 
 import { decode as decodeStack } from "../decode/stack";

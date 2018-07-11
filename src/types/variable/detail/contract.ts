@@ -1,6 +1,6 @@
 import { Variable, DecodedVariable } from "../variable";
 import { BN } from "bn.js";
-import { LibSdbInterface } from "../../../interface";
+import { LibSdbInterface } from "../../../interface/interface";
 
 export class ContractDetail {
     variable: Variable;

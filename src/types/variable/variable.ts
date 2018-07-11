@@ -1,5 +1,5 @@
 import { AstScope } from "../astScope";
-import { DebugProtocol } from "vscode-debugprotocol";
+import { DebugProtocol } from "vscode-debugprotocol/lib/debugProtocol";
 
 import { VariableProcessor } from "./definition/processor";
 import { LibSdbTypes } from "../types";

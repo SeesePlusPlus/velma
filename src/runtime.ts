@@ -1,9 +1,9 @@
 import { EventEmitter } from "events";
-import { DebugProtocol } from "vscode-debugprotocol";
+import { DebugProtocol } from "vscode-debugprotocol/lib/debugProtocol";
 
 import { LibSdbTypes } from "./types/types";
 import { LibSdbUtils } from "./utils/utils";
-import { LibSdbInterface } from "./interface";
+import { LibSdbInterface } from "./interface/interface";
 import { LibSdbBreakpoints } from "./breakpoints";
 import { LibSdbEvaluator } from "./evaluator";
 import { ValueDetail } from "./types/barrel";

@@ -1,7 +1,7 @@
 import { Variable, DecodedVariable, VariableLocation } from "../variable";
 import { ValueDetail } from "./value";
 import { BN } from "bn.js";
-import { LibSdbInterface } from "../../../interface";
+import { LibSdbInterface } from "../../../interface/interface";
 import { LibSdbTypes } from "../../types";
 import { VariableProcessor } from "../definition/processor";
 

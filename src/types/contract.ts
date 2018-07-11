@@ -1,6 +1,6 @@
 import { ScopeVariableMap, Ast, VariableMap } from "./misc";
 import { Variable } from "./variable/variable";
-import { LibSdbTypes } from "../types/types";
+import { LibSdbTypes } from "./types";
 
 const CircularJSON = require("circular-json");
 
