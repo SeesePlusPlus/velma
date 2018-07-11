@@ -1,7 +1,7 @@
 import { Variable, DecodedVariable, VariableLocation } from "../variable";
 import { ValueDetail } from "./value";
 import { BN } from "bn.js";
-import { LibSdbInterface } from "../../../interface/interface";
+import { EvmInterface } from "../../../interface/evm";
 import { LibSdbTypes } from "../../types";
 import { VariableProcessor } from "../definition/processor";
 
@@ -95,7 +95,7 @@ export class ArrayDetail {
         }
     }
 
-    async decodeChildren(stack: BN[], memory: (number | null)[], _interface: LibSdbInterface, address: string): Promise<DecodedVariable[]> {
+    async decodeChildren(stack: BN[], memory: (number | null)[], _interface: EvmInterface, address: string): Promise<DecodedVariable[]> {
         let decodedVariables: DecodedVariable[] = [];
 
         decodedVariables.push(<DecodedVariable> {
@@ -120,7 +120,7 @@ export class ArrayDetail {
         return decodedVariables;
     }
 
-    async decode(stack: BN[], memory: (number | null)[], _interface: LibSdbInterface, address: string): Promise<DecodedVariable> {
+    async decode(stack: BN[], memory: (number | null)[], _interface: EvmInterface, address: string): Promise<DecodedVariable> {
         let decodedVariable = <DecodedVariable> {
             name: this.variable.name,
             type: "array",

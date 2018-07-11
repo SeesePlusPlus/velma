@@ -1,9 +1,9 @@
-import { LibSdbInterface } from "../../../interface/interface";
+import { EvmInterface } from "../../../interface/evm";
 import { LibSdbTypes } from "../../types";
 import { decode as decodeValue } from "./value";
 import { BN } from "bn.js";
 
-export async function decode(position: BN, offset: number, length: number, detail: LibSdbTypes.ValueDetail | LibSdbTypes.EnumDetail, _interface: LibSdbInterface, address: string): Promise<string> {
+export async function decode(position: BN, offset: number, length: number, detail: LibSdbTypes.ValueDetail | LibSdbTypes.EnumDetail, _interface: EvmInterface, address: string): Promise<string> {
     let value = "";
 
     if (position === null) {

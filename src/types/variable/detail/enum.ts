@@ -1,7 +1,7 @@
 import { ValueDetail } from "./value";
 import { EnumDefinition } from "../../enum";
 import { Variable, DecodedVariable, VariableLocation, VariableType, VariableTypeToString } from "../variable";
-import { LibSdbInterface } from "../../../interface/interface";
+import { EvmInterface } from "../../../interface/evm";
 import { BN } from "bn.js";
 
 import { decode as decodeStack } from "../decode/stack";
@@ -39,7 +39,7 @@ export class EnumDetail extends ValueDetail {
         return clone;
     }
 
-    async decode(stack: BN[], memory: (number | null)[], _interface: LibSdbInterface, address: string): Promise<DecodedVariable> {
+    async decode(stack: BN[], memory: (number | null)[], _interface: EvmInterface, address: string): Promise<DecodedVariable> {
         let v: string = "";
 
         switch (this.variable.location) {

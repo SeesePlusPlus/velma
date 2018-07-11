@@ -3,7 +3,8 @@ import { DebugProtocol } from "vscode-debugprotocol/lib/debugProtocol";
 
 import { LibSdbTypes } from "./types/types";
 import { LibSdbUtils } from "./utils/utils";
-import { LibSdbInterface } from "./interface/interface";
+import { EvmInterface } from "./interface/evm";
+import { ClientInterface } from "./interface/client";
 import { LibSdbBreakpoints } from "./breakpoints";
 import { LibSdbEvaluator } from "./evaluator";
 import { ValueDetail } from "./types/barrel";
@@ -31,7 +32,8 @@ export class LibSdbRuntime extends EventEmitter {
 
     public _variableReferenceIds: LibSdbTypes.VariableReferenceMap;
 
-    public _interface: LibSdbInterface;
+    public _evmInterface: EvmInterface;
+    public _clientInterface: ClientInterface;
     public _breakpoints: LibSdbBreakpoints;
     public _evaluator: LibSdbEvaluator;
 
@@ -40,7 +42,8 @@ export class LibSdbRuntime extends EventEmitter {
 
         LibSdbRuntime._instance = this;
 
-        this._interface = new LibSdbInterface();
+        this._evmInterface = new EvmInterface();
+        this._clientInterface = new ClientInterface();
         this._breakpoints = new LibSdbBreakpoints();
         this._evaluator = new LibSdbEvaluator();
 
@@ -71,7 +74,7 @@ export class LibSdbRuntime extends EventEmitter {
 
         this._priorStepData = this._stepData.clone();
 
-        this._interface.respondToDebugHook(stepEvent, this._stepData.debuggerMessageId, content);
+        this._evmInterface.respondToDebugHook(stepEvent, this._stepData.debuggerMessageId, content);
     }
 
     private processJumpIn(sourceLocation: any, contract: LibSdbTypes.Contract, stack: any, isExternal: boolean = false) {
@@ -319,7 +322,7 @@ export class LibSdbRuntime extends EventEmitter {
                 if (this._variableReferenceIds.has(args.variablesReference)) {
                     const detail = this._variableReferenceIds.get(args.variablesReference)!;
                     if (!(detail instanceof ValueDetail)) {
-                        variables = await detail.decodeChildren(stack, memory, this._interface, this._stepData.contractAddress);
+                        variables = await detail.decodeChildren(stack, memory, this._evmInterface, this._stepData.contractAddress);
                     }
                 }
             }
@@ -332,7 +335,7 @@ export class LibSdbRuntime extends EventEmitter {
                         for (const name of names) {
                             const variable = scopeVars.get(name);
                             if (variable && variable.detail !== null && !variable.isStateVariable) {
-                                const value = await variable.detail.decode(stack, memory, this._interface, this._stepData.contractAddress);
+                                const value = await variable.detail.decode(stack, memory, this._evmInterface, this._stepData.contractAddress);
 
                                 variables.push(value);
                             }
@@ -344,7 +347,7 @@ export class LibSdbRuntime extends EventEmitter {
                 for (let i = 0; i < contract.stateVariables.length; i++) {
                     const variable = contract.stateVariables[i];
                     if (variable && variable.detail !== null) {
-                        const value = await variable.detail.decode(stack, memory, this._interface, this._stepData.contractAddress);
+                        const value = await variable.detail.decode(stack, memory, this._evmInterface, this._stepData.contractAddress);
 
                         variables.push(value);
                     }
@@ -482,7 +485,7 @@ export class LibSdbRuntime extends EventEmitter {
         const ln = this._stepData.location.start.line;
 
         if (this._stepData.exception !== undefined) {
-            this._interface.sendEvent("stopOnException");
+            this._clientInterface.sendEvent("stopOnException");
             return true;
         }
 
@@ -493,20 +496,20 @@ export class LibSdbRuntime extends EventEmitter {
             switch (stepEvent) {
                 case "stopOnStepOver":
                     if (callDepthChange === 0 && differentLine && sameFile) {
-                        this._interface.sendEvent("stopOnStepOver");
+                        this._clientInterface.sendEvent("stopOnStepOver");
                         return true;
                     }
                     break;
                 case "stopOnStepIn":
                     const node = LibSdbUtils.SourceMappingDecoder.findNodeAtSourceLocation("FunctionDefinition", this._stepData.source, { AST: file.ast });
                     if (callDepthChange > 0 && (!sameFile || differentLine) && node !== null) {
-                        this._interface.sendEvent("stopOnStepIn");
+                        this._clientInterface.sendEvent("stopOnStepIn");
                         return true;
                     }
                     break;
                 case "stopOnStepOut":
                     if (callDepthChange < 0 && (!sameFile || differentLine)) {
-                        this._interface.sendEvent("stopOnStepOut");
+                        this._clientInterface.sendEvent("stopOnStepOut");
                         return true;
                     }
                     break;
@@ -528,13 +531,13 @@ export class LibSdbRuntime extends EventEmitter {
 
             if (bps.length > 0) {
                 // send 'stopped' event
-                this._interface.sendEvent('stopOnBreakpoint');
+                this._clientInterface.sendEvent('stopOnBreakpoint');
 
                 // the following shows the use of 'breakpoint' events to update properties of a breakpoint in the UI
                 // if breakpoint is not yet verified, verify it now and send a 'breakpoint' update event
                 if (!bps[0].verified) {
                     bps[0].verified = true;
-                    this._interface.sendEvent('breakpointValidated', bps[0]);
+                    this._clientInterface.sendEvent('breakpointValidated', bps[0]);
                 }
 
                 // halt execution since we just hit a breakpoint
@@ -577,7 +580,7 @@ export class LibSdbRuntime extends EventEmitter {
                 return true;
             });
             if (declarations.length > 0) {
-                await this._interface.requestSendVariableDeclarations(address, declarations);
+                await this._evmInterface.requestSendVariableDeclarations(address, declarations);
             }
         }
     }
@@ -613,7 +616,7 @@ export class LibSdbRuntime extends EventEmitter {
                 return true;
             });
             if (jumpDestinations.length > 0) {
-                await this._interface.requestSendFunctionJumpDestinations(address, jumpDestinations);
+                await this._evmInterface.requestSendFunctionJumpDestinations(address, jumpDestinations);
             }
         }
     }

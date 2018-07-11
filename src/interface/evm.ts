@@ -7,7 +7,7 @@ const uuidv4 = require("uuid").v4;
 /*
  * This is the interface to EVM implementations (i.e. ethereumjs-vm via ganache-core/cli, geth, parity, etc.)
  */
-export class LibraryInterface {
+export class EvmInterface {
 
   private _debuggerMessages: Map<string, Function | undefined>;
 

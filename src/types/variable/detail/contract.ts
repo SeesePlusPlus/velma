@@ -1,6 +1,6 @@
 import { Variable, DecodedVariable } from "../variable";
 import { BN } from "bn.js";
-import { LibSdbInterface } from "../../../interface/interface";
+import { EvmInterface } from "../../../interface/evm";
 
 export class ContractDetail {
     variable: Variable;
@@ -45,13 +45,13 @@ export class ContractDetail {
         return clone;
     }
 
-    async decodeChildren(stack: BN[], memory: (number | null)[], _interface: LibSdbInterface, address: string): Promise<DecodedVariable[]> {
+    async decodeChildren(stack: BN[], memory: (number | null)[], _interface: EvmInterface, address: string): Promise<DecodedVariable[]> {
         let decodedVariables: DecodedVariable[] = [];
 
         return decodedVariables;
     }
 
-    async decode(stack: BN[], memory: (number | null)[], _interface: LibSdbInterface, address: string): Promise<DecodedVariable> {
+    async decode(stack: BN[], memory: (number | null)[], _interface: EvmInterface, address: string): Promise<DecodedVariable> {
         let decodedVariable = <DecodedVariable>{
             name: this.variable.name,
             type: this.name,

@@ -2,7 +2,7 @@ import { Variable, DecodedVariable } from "../variable";
 import { ValueDetail } from "./value";
 import { ArrayDetail } from "./array";
 import { BN } from "bn.js";
-import { LibSdbInterface } from "../../../interface/interface";
+import { EvmInterface } from "../../../interface/evm";
 import { LibSdbTypes } from "../../types";
 
 export class MappingDetail {
@@ -58,11 +58,11 @@ export class MappingDetail {
         return clone;
     }
 
-    async decodeChildren(stack: BN[], memory: (number | null)[], _interface: LibSdbInterface, address: string): Promise<DecodedVariable[]> {
+    async decodeChildren(stack: BN[], memory: (number | null)[], _interface: EvmInterface, address: string): Promise<DecodedVariable[]> {
         return [];
     }
 
-    async decode(stack: BN[], memory: (number | null)[], _interface: LibSdbInterface, address: string): Promise<DecodedVariable> {
+    async decode(stack: BN[], memory: (number | null)[], _interface: EvmInterface, address: string): Promise<DecodedVariable> {
         let decodedVariable = <DecodedVariable> {
             name: this.variable.name,
             type: "mapping",
